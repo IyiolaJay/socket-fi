@@ -40,8 +40,8 @@ app.use(passport.session());
 app.use(
   cors({
     origin: [
-      "http://localhost:4000/",
-      "https://auth-twitter.socket.fi/",
+      "http://localhost:4000",
+      "https://auth-twitter.socket.fi",
       "http://localhost:5173",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
