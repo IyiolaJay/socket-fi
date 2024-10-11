@@ -46,8 +46,7 @@ const allowedOrigin = [
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
-
+    origin: allowedOrigin,
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
