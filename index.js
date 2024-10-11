@@ -44,7 +44,7 @@ app.use(
       "http://localhost:4000",
       "https://auth-twitter.socket.fi",
     ],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    methods: ["GET", "POST"],
     credentials: true,
   })
 );
