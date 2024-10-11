@@ -1,7 +1,6 @@
 const passport = require("passport");
 const TwitterStrategy = require("passport-twitter");
 const User = require("../models/user-model");
-const URL = require("./URL");
 
 require("dotenv").config();
 
