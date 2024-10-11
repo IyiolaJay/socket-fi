@@ -50,6 +50,8 @@ app.use(
   })
 );
 
+app.options("*", cors());
+
 app.use("/auth", authRoutes);
 
 const authCheck = (req, res, next) => {
