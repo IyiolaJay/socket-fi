@@ -37,14 +37,17 @@ app.use(passport.initialize());
 // deserialize cookie from the browser
 app.use(passport.session());
 
+const allowedOrigin = [
+  "http://localhost:5173",
+  "http://www.localhost:5173",
+  "http://localhost:4000",
+  "https://auth-twitter.socket.fi",
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://www.localhost:5173",
-      "http://localhost:4000",
-      "https://auth-twitter.socket.fi",
-    ],
+    origin: "http://localhost:5173",
+
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
