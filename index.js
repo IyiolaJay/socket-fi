@@ -37,12 +37,13 @@ app.use(passport.initialize());
 // deserialize cookie from the browser
 app.use(passport.session());
 
+const cors = require("cors");
 app.use(
   cors({
     origin: [
+      "http://localhost:5173",
       "http://localhost:4000",
       "https://auth-twitter.socket.fi",
-      "http://localhost:5173",
     ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
