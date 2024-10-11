@@ -37,7 +37,6 @@ app.use(passport.initialize());
 // deserialize cookie from the browser
 app.use(passport.session());
 
-const cors = require("cors");
 app.use(
   cors({
     origin: [
