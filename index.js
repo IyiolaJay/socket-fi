@@ -37,7 +37,7 @@ app.use(passport.initialize());
 // deserialize cookie from the browser
 app.use(passport.session());
 
-const allowedOrigins = [
+const allowedOrigin = [
   "https://socket-fi.vercel.app",
   "https://www.socket-fi.vercel.app",
   "http://localhost:5173",
@@ -46,25 +46,12 @@ const allowedOrigins = [
   "https://auth-twitter.socket.fi",
 ];
 
-// app.use(
-//   cors({
-//     origin: "https://socket-fi.vercel.app",
-//     methods: ["GET", "POST"],
-//     credentials: true,
-//     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-//   })
-// );
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true); // Allow the origin
-      } else {
-        callback(new Error("Not allowed by CORS")); // Block other origins
-      }
-    },
-    credentials: true, // If you are sending cookies or authentication headers
+    origin: "https://socket-fi.vercel.app",
+    methods: ["GET", "POST"],
+    credentials: true,
+    // allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
 
