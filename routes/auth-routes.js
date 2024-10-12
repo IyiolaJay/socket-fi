@@ -6,6 +6,8 @@ const CLIENT_HOME_PAGE_URL = "https://socket-fi.vercel.app/";
 
 // when login is successful, retrieve user info
 router.get("/login/success", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://socket-fi.vercel.app");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   if (req.user) {
     res.json({
       success: true,
