@@ -48,7 +48,7 @@ const allowedOrigin = [
 
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: "https://socket-fi.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
