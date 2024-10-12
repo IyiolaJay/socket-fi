@@ -38,6 +38,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 const allowedOrigin = [
+  "https://socket-fi.vercel.app",
+  "https://www.socket-fi.vercel.app",
   "http://localhost:5173",
   "http://www.localhost:5173",
   "http://localhost:4000",
