@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const keys = require("./config/keys");
 const cors = require("cors");
 const cookieParser = require("cookie-parser"); // parse cookie header
+require("./config/passport-setup");
 
 const port = process.env.PORT || 4000;
 

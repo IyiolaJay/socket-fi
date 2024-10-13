@@ -2,13 +2,13 @@ const cookieSession = require("cookie-session");
 const express = require("express");
 const app = express();
 const passport = require("passport");
-const passportSetup = require("./config/passport-setup");
 const session = require("express-session");
 const authRoutes = require("./routes/auth-routes");
 const mongoose = require("mongoose");
 const keys = require("./config/keys");
 const cors = require("cors");
 const cookieParser = require("cookie-parser"); // parse cookie header
+require("./config/passport-setup");
 
 const port = process.env.PORT || 4000;
 
@@ -26,9 +26,10 @@ app.use(
     name: "sessionSocketFI",
     keys: [keys.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 1000, // 24 hour
-    // secure: true, // Enable only in production
-    // httpOnly: true, // Prevent client-side access
-    // sameSite: false, // Allow cookies in cross-site requests
+
+    secure: process.env.NODE_ENV === "production", // Enable only in production for HTTPS
+    httpOnly: true, // Prevent client-side access to cookies
+    sameSite: "None", // Allow cookies in cross-site requests
   })
 );
 // parse cookies
