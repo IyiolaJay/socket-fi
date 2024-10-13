@@ -24,7 +24,7 @@ mongoose
 app.use(
   cookieSession({
     name: "sessionSocketFI",
-    keys: keys.COOKIE_KEY,
+    keys: [keys.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 1000, // 24 hour
     // secure: true, // Enable only in production
     // httpOnly: true, // Prevent client-side access
