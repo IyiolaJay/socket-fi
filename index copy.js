@@ -25,28 +25,23 @@ mongoose
 //   cookieSession({
 //     name: "sessionSocketFI",
 //     keys: [keys.COOKIE_KEY],
-//     maxAge: 24 * 60 * 60 * 1000, // 24 hour
-//     // secure: true, // Enable only in production
-//     httpOnly: true, // Prevent client-side access
-//     sameSite: false, // Allow cookies in cross-site requests
+//     maxAge: 24 * 60 * 60 * 100,
+//     // secure: process.env.NODE_ENV === "production", // Only set cookies over HTTPS
+//     secure: true,
+//     httpOnly: true, // Prevent clie
 //   })
 // );
 
 app.use(
-  session({
-    name: "sessionSocketFI", // Name of the session cookie
-    secret: keys.COOKIE_KEY, // Secret used to sign the session ID cookie
-    resave: false, // Forces the session to be saved back to the session store
-    saveUninitialized: false, // Forces a session that is new but unmodified to be saved to the store
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      // secure: true, // Only set cookies over HTTPS (true in production)
-      // httpOnly: true, // Prevent client-side access to cookies
-      // sameSite: "none", // Allow cookies in cross-site requests
-    },
+  cookieSession({
+    name: "sessionSocketFI",
+    keys: [keys.COOKIE_KEY],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hour
+    // secure: true, // Enable only in production
+    httpOnly: true, // Prevent client-side access
+    sameSite: false, // Allow cookies in cross-site requests
   })
 );
-
 // parse cookies
 app.use(cookieParser());
 
@@ -65,7 +60,7 @@ const allowedOrigin = [
 app.use(
   cors({
     // origin: "http://localhost:5173",
-    origin: "http://localhost:5173",
+    origin: "https://socket.fi",
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
