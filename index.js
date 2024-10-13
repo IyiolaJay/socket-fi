@@ -65,7 +65,7 @@ const allowedOrigin = [
 app.use(
   cors({
     // origin: "http://localhost:5173",
-    origin: "http://localhost:5173",
+    origin: "https://www.socket.fi/",
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
