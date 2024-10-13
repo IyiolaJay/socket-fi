@@ -27,8 +27,8 @@ app.use(
     keys: [keys.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 100,
     // secure: process.env.NODE_ENV === "production", // Only set cookies over HTTPS
-    secure: true,
-    httpOnly: true, // Prevent clie
+    // secure: true,
+    // httpOnly: true, // Prevent clie
   })
 );
 
