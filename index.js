@@ -39,7 +39,7 @@ app.use(
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     // secure: true, // Enable only in production
     httpOnly: true, // Prevent client-side access
-    // sameSite: "None", // Allow cookies in cross-site requests
+    sameSite: false, // Allow cookies in cross-site requests
   })
 );
 // parse cookies
