@@ -23,7 +23,7 @@ mongoose
 
 app.use(
   cookieSession({
-    name: "session",
+    name: "sessionSocketFI",
     keys: [keys.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 100,
   })
@@ -37,50 +37,21 @@ app.use(passport.initialize());
 // deserialize cookie from the browser
 app.use(passport.session());
 
-// const allowedOrigin = [
-//   "https://socket-fi.vercel.app",
-//   "https://www.socket-fi.vercel.app",
-//   "http://localhost:5173",
-//   "http://www.localhost:5173",
-//   "http://localhost:4000",
-//   "https://auth-twitter.socket.fi",
-// ];
-
-// app.use(
-//   cors({
-//     origin: "*", // allow to server to accept request from different origin
-//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     credentials: true, // allow session cookie from browser to pass through
-//   })
-// );
-
-const allowedOrigins = [
-  "https://socket-fi.vercel.app", // Client app
-  "http://localhost:5173", // Local development
+const allowedOrigin = [
+  "http://localhost:5173",
+  "http://www.localhost:5173",
+  "http://localhost:4000",
+  "https://auth-twitter.socket.fi",
 ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Enable credentials (cookies or auth headers)
-    methods: ["GET", "POST"], // Allowed methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
-
-app.use((req, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self'; icon-src 'self' /favicon.ico;"
-  );
-  next();
-});
 
 // app.options("*", cors());
 

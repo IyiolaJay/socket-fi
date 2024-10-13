@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-// const CLIENT_HOME_PAGE_URL = "http://localhost:5173";
-const CLIENT_HOME_PAGE_URL = "http://socket-fi.vercel.app/";
+const CLIENT_HOME_PAGE_URL = "http://localhost:5173";
 // const CLIENT_HOME_PAGE_URL = "https://audaxious.com";
 
 // when login is successful, retrieve user info
