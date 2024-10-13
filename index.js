@@ -49,7 +49,7 @@ const allowedOrigin = [
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://socket-fi.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
