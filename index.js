@@ -55,6 +55,14 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; icon-src 'self' /favicon.ico;"
+  );
+  next();
+});
+
 // app.options("*", cors());
 
 app.use("/auth", authRoutes);
