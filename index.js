@@ -43,11 +43,12 @@ app.use(
     secret: keys.COOKIE_KEY, // A secret string used to sign the session ID cookie
     resave: false, // Don't save session if unmodified
     saveUninitialized: false, // Don't create session until something is stored
+
     cookie: {
-      httpOnly: true, // Prevent access to cookie from JavaScript
-      secure: process.env.NODE_ENV === "production", // Set to true only in production for HTTPS
+      // httpOnly: true, // Prevent access to cookie from JavaScript
+      // secure: process.env.NODE_ENV === "production", // Set to true only in production for HTTPS
       maxAge: 24 * 60 * 60 * 1000, // Cookie expires after 24 hours
-      sameSite: "None", // Set to 'None' for cross-site cookies
+      // sameSite: "None", // Set to 'None' for cross-site cookies
     },
     store: MongoStore.create({
       // Use MongoDB to store session data
