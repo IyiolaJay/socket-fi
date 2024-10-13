@@ -28,9 +28,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      // secure: process.env.NODE_ENV === "production", // Only set cookies over HTTPS
-      // httpOnly: true, // Prevent client-side access to cookies
-      // sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cross-site in production, strict in dev
+      secure: process.env.NODE_ENV === "production", // Only set cookies over HTTPS
+      httpOnly: true, // Prevent client-side access to cookies
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // Cross-site in production, strict in dev
     },
   })
 );
