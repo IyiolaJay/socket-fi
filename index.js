@@ -9,7 +9,6 @@ const keys = require("./config/keys");
 const cors = require("cors");
 const cookieParser = require("cookie-parser"); // parse cookie header
 require("./config/passport-setup");
-const MongoStore = require("connect-mongo");
 
 const port = process.env.PORT || 4000;
 
@@ -22,41 +21,19 @@ mongoose
     console.error("Error connecting to mongo db:", err);
   });
 
-// app.use(
-//   cookieSession({
-//     name: "sessionSocketFI",
-//     keys: [keys.COOKIE_KEY],
-//     maxAge: 24 * 60 * 60 * 1000, // 24 hour
-
-//     // secure: process.env.NODE_ENV === "production", // Enable only in production for HTTPS
-//     // httpOnly: true, // Prevent client-side access to cookies
-//     // sameSite: "None", // Allow cookies in cross-site requests
-//   })
-// );
-// // parse cookies
-// app.use(cookieParser());
-
-// Express Session Middleware
 app.use(
-  session({
-    name: "sessionSocketFI", // Name of the session cookie
-    secret: keys.COOKIE_KEY, // A secret string used to sign the session ID cookie
-    resave: false, // Don't save session if unmodified
-    saveUninitialized: false, // Don't create session until something is stored
+  cookieSession({
+    name: "sessionSocketFI",
+    keys: [keys.COOKIE_KEY],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hour
 
-    cookie: {
-      // httpOnly: true, // Prevent access to cookie from JavaScript
-      // secure: process.env.NODE_ENV === "production", // Set to true only in production for HTTPS
-      maxAge: 24 * 60 * 60 * 1000, // Cookie expires after 24 hours
-      // sameSite: "None", // Set to 'None' for cross-site cookies
-    },
-    store: MongoStore.create({
-      // Use MongoDB to store session data
-      mongoUrl: keys.MONGODB_URI, // MongoDB connection string
-      collectionName: "sessions", // Collection name to store session data
-    }),
+    // secure: process.env.NODE_ENV === "production", // Enable only in production for HTTPS
+    // httpOnly: true, // Prevent client-side access to cookies
+    // sameSite: "None", // Allow cookies in cross-site requests
   })
 );
+// parse cookies
+app.use(cookieParser());
 
 // initalize passport
 app.use(passport.initialize());
