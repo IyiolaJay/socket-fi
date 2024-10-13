@@ -25,7 +25,7 @@ app.use(
   cookieSession({
     name: "sessionSocketFI",
     keys: [keys.COOKIE_KEY],
-    maxAge: 24 * 60 * 60 * 1000, // 24 hour
+    maxAge: 24 * 60 * 60 * 100, // 24 hour
 
     // secure: process.env.NODE_ENV === "production", // Enable only in production for HTTPS
     // httpOnly: true, // Prevent client-side access to cookies
