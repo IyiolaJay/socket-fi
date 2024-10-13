@@ -1,3 +1,4 @@
+const cookieSession = require("cookie-session");
 const express = require("express");
 const app = express();
 const passport = require("passport");
@@ -21,42 +22,41 @@ mongoose
   });
 
 app.use(
-  session({
+  cookieSession({
     name: "sessionSocketFI",
-    secret: keys.COOKIE_KEY,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
-      // secure: process.env.NODE_ENV === "production", // Only set cookies over HTTPS
-      httpOnly: true, // Prevent client-side access to cookies
-      sameSite: false,
-    },
+    keys: [keys.COOKIE_KEY],
+    maxAge: 24 * 60 * 60 * 1000, // 24 hour
+    // secure: true, // Enable only in production
+    // httpOnly: true, // Prevent client-side access
+    // sameSite: false, // Allow cookies in cross-site requests
   })
 );
-
 // parse cookies
 app.use(cookieParser());
 
-// initialize passport
+// initalize passport
 app.use(passport.initialize());
+// deserialize cookie from the browser
 app.use(passport.session());
 
 const allowedOrigin = [
   "http://localhost:5173",
+  "http://www.localhost:5173",
   "http://localhost:4000",
   "https://auth-twitter.socket.fi",
-  "https://socket.fi",
 ];
 
 app.use(
   cors({
-    origin: allowedOrigin,
+    // origin: "http://localhost:5173",
+    origin: "https://socket.fi",
     methods: ["GET", "POST"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
+
+// app.options("*", cors());
 
 app.use("/auth", authRoutes);
 
@@ -64,7 +64,7 @@ const authCheck = (req, res, next) => {
   if (!req.user) {
     res.status(401).json({
       authenticated: false,
-      message: "User has not been authenticated",
+      message: "user has not been authenticated",
     });
   } else {
     next();
@@ -74,10 +74,11 @@ const authCheck = (req, res, next) => {
 app.get("/", authCheck, (req, res) => {
   res.status(200).json({
     authenticated: true,
-    message: "User successfully authenticated",
+    message: "user successfully authenticated",
     user: req.user,
     cookies: req.cookies,
   });
 });
 
+// connect react to nodejs express server
 app.listen(port, () => console.log(`Server is running on port ${port}!`));
