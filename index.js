@@ -1,12 +1,13 @@
-const cookieSession = require("cookie-session");
+// const cookieSession = require("cookie-session");
 const express = require("express");
 const app = express();
 const passport = require("passport");
-// const session = require("express-session");
+const session = require("express-session");
 const authRoutes = require("./routes/auth-routes");
 const mongoose = require("mongoose");
 const keys = require("./config/keys");
 const cors = require("cors");
+const connectMongoDBSession = require("connect-mongodb-session");
 // const cookieParser = require("cookie-parser"); // parse cookie header
 require("./config/passport-setup");
 
@@ -21,30 +22,60 @@ mongoose
     console.error("Error connecting to mongo db:", err);
   });
 
+
+const MongoDBStore = connectMongoDBSession(session)
+const sessionStore = new MongoDBStore({
+  uri: keys.MONGODB_URI,
+  collection: 'sessions',
+})
+
 app.use(
-  cookieSession({
-    name: "sessionSocketFI",
-    keys: [keys.COOKIE_KEY],
-    maxAge: 24 * 60 * 60 * 100, // 24 hour
-    overwrite : true,
-    sameSite: "None",
+    session({
+      name : "sessionSocket",
+      secret: process.env.COOKIE_KEY,
+      resave: false,
+      saveUninitialized: true,
+      maxAge: 24 * 60 * 60 * 1000,
+      proxy: process.env.NODE_ENV === 'production' ? true : false,
+      store: sessionStore,
+      // cookie:{
+      //   sameSite : 'None',
+      //   secure : process.env.NODE_ENV === 'production' ? true : false,
+      //   // httpOnly : process.env.NODE_ENV === 'production' ? true : false,
+      // }
+    })
+  );
+  
+app.options("*", cors());
+app.use(cors({
+  credentials: true,
+  optionsSuccessStatus: 204,
+}));
+
+
+// app.use(
+//   cookieSession({
+//     name: "sessionSocketFI",
+//     keys: [keys.COOKIE_KEY],
+//     maxAge: 24 * 60 * 60 * 100, // 24 hour
+//     sameSite: "None",
     
 
-    // secure: process.env.NODE_ENV === "production", // Enable only in production for HTTPS
-    // httpOnly: true, // Prevent client-side access to cookies
-    // sameSite: "None", // Allow cookies in cross-site requests
-  })
-);
+//     // secure: process.env.NODE_ENV === "production", // Enable only in production for HTTPS
+//     // httpOnly: true, // Prevent client-side access to cookies
+//     // sameSite: "None", // Allow cookies in cross-site requests
+//   })
+// );
 
-app.use(
-  cors({
-    // origin: "http://localhost:5173",
-    origin: "https://www.socket.fi",
-    methods: ["GET", "POST", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  })
-);
+// app.use(
+//   cors({
+//     // origin: "http://localhost:5173",
+//     origin: "https://www.socket.fi",
+//     methods: ["GET", "POST", "OPTIONS"],
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+//   })
+// );
 // parse cookies
 // app.use(cookieParser());
 
