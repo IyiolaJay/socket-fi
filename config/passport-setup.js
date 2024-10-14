@@ -20,7 +20,7 @@ passport.deserializeUser((user, done) => {
   //     if (!user) {
   //       return done(null, false);
   //     }
-      done(null, user);
+    done(null, user);
     // })
     // .catch((err) => {
     //   console.error("Error during deserialization:", err);

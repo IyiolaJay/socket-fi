@@ -26,7 +26,7 @@ app.use(
     name: "sessionSocketFI",
     keys: [keys.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 100, // 24 hour
-    sameSite: "lax"
+    sameSite: "None"
 
     // secure: process.env.NODE_ENV === "production", // Enable only in production for HTTPS
     // httpOnly: true, // Prevent client-side access to cookies
@@ -38,9 +38,9 @@ app.use(
   cors({
     // origin: "http://localhost:5173",
     origin: "https://www.socket.fi",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
-    // allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
 // parse cookies
