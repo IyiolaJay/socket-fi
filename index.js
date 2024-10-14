@@ -48,6 +48,7 @@ app.use(
   
 app.options("*", cors());
 app.use(cors({
+  origin: ["https://www.socket.fi"],
   credentials: true,
   optionsSuccessStatus: 204,
 }));
