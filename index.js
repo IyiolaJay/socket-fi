@@ -2,12 +2,12 @@ const cookieSession = require("cookie-session");
 const express = require("express");
 const app = express();
 const passport = require("passport");
-const session = require("express-session");
+// const session = require("express-session");
 const authRoutes = require("./routes/auth-routes");
 const mongoose = require("mongoose");
 const keys = require("./config/keys");
 const cors = require("cors");
-const cookieParser = require("cookie-parser"); // parse cookie header
+// const cookieParser = require("cookie-parser"); // parse cookie header
 require("./config/passport-setup");
 
 const port = process.env.PORT || 4000;
@@ -33,19 +33,19 @@ app.use(
   })
 );
 // parse cookies
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // initalize passport
 app.use(passport.initialize());
 // deserialize cookie from the browser
 app.use(passport.session());
 
-const allowedOrigin = [
-  "http://localhost:5173",
-  "http://www.localhost:5173",
-  "http://localhost:4000",
-  "https://auth-twitter.socket.fi",
-];
+// const allowedOrigin = [
+//   "http://localhost:5173",
+//   "http://www.localhost:5173",
+//   "http://localhost:4000",
+//   "https://auth-twitter.socket.fi",
+// ];
 
 app.use(
   cors({

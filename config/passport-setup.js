@@ -9,21 +9,25 @@ const TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET;
 
 // serialize the user.id to save in the cookie session
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then((user) => {
-      if (!user) {
-        return done(null, false);
-      }
+passport.deserializeUser((user, done) => {
+  // console.log("=========deserializing========")
+  console.time("executionTime");
+  // User.findById(id)
+  //   .then((user) => {
+  //     if (!user) {
+  //       return done(null, false);
+  //     }
       done(null, user);
-    })
-    .catch((err) => {
-      console.error("Error during deserialization:", err);
-      done(err);
-    });
+    // })
+    // .catch((err) => {
+    //   console.error("Error during deserialization:", err);
+    //   done(err);
+    // });
+
+  console.timeEnd("executionTime"); 
 });
 
 passport.use(
@@ -35,6 +39,8 @@ passport.use(
     },
     async (token, tokenSecret, profile, done) => {
       try {
+        console.time("executionTime2");
+
         const currentUser = await User.findOneAndUpdate(
           { twitterId: profile._json.id_str },
           {
@@ -48,9 +54,10 @@ passport.use(
           },
           { new: true, upsert: true }
         );
+        console.timeEnd("executionTime2"); 
 
         // console.log(currentUser);
-        console.log("success");
+        // console.log("success");
 
         done(null, currentUser);
       } catch (err) {
