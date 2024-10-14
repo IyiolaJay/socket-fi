@@ -39,7 +39,7 @@ app.use(
       proxy: process.env.NODE_ENV === 'production' ? true : false,
       store: sessionStore,
       cookie:{
-        // sameSite : 'None',
+        sameSite : process.env.NODE_ENV === 'production' ? 'None' : 'lax',
         secure : process.env.NODE_ENV === 'production' ? true : false,
         // httpOnly : process.env.NODE_ENV === 'production' ? true : false,
       }
