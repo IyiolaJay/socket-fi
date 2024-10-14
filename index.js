@@ -27,6 +27,7 @@ const MongoDBStore = connectMongoDBSession(session)
 const sessionStore = new MongoDBStore({
   uri: keys.MONGODB_URI,
   collection: 'sessions',
+  expires : 24 * 60 * 60
 })
 
 app.use(
