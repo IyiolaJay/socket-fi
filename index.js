@@ -38,11 +38,11 @@ app.use(
       maxAge: 24 * 60 * 60 * 1000,
       proxy: process.env.NODE_ENV === 'production' ? true : false,
       store: sessionStore,
-      // cookie:{
-      //   sameSite : 'None',
-      //   secure : process.env.NODE_ENV === 'production' ? true : false,
-      //   // httpOnly : process.env.NODE_ENV === 'production' ? true : false,
-      // }
+      cookie:{
+        // sameSite : 'None',
+        secure : process.env.NODE_ENV === 'production' ? true : false,
+        // httpOnly : process.env.NODE_ENV === 'production' ? true : false,
+      }
     })
   );
   
