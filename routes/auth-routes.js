@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
-const CLIENT_HOME_PAGE_URL = "https://socket.fi/";
+const CLIENT_HOME_PAGE_URL = "https://www.socket.fi";
 // const CLIENT_HOME_PAGE_URL = "http://localhost:5173";
 // const CLIENT_HOME_PAGE_URL = "https://audaxious.com";
 
