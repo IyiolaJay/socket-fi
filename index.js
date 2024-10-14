@@ -24,12 +24,23 @@ mongoose
 app.use(
   cookieSession({
     name: "sessionSocketFI",
+    overwrite : true,
     keys: [keys.COOKIE_KEY],
     maxAge: 24 * 60 * 60 * 100, // 24 hour
 
     // secure: process.env.NODE_ENV === "production", // Enable only in production for HTTPS
     // httpOnly: true, // Prevent client-side access to cookies
     // sameSite: "None", // Allow cookies in cross-site requests
+  })
+);
+
+app.use(
+  cors({
+    // origin: "http://localhost:5173",
+    origin: "https://www.socket.fi",
+    methods: ["GET", "POST"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
 // parse cookies
@@ -47,15 +58,7 @@ app.use(passport.session());
 //   "https://auth-twitter.socket.fi",
 // ];
 
-app.use(
-  cors({
-    // origin: "http://localhost:5173",
-    origin: "https://www.socket.fi",
-    methods: ["GET", "POST"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-  })
-);
+
 
 // app.options("*", cors());
 

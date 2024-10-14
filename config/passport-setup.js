@@ -35,7 +35,7 @@ passport.use(
     {
       consumerKey: TWITTER_CONSUMER_KEY,
       consumerSecret: TWITTER_CONSUMER_SECRET,
-      callbackURL: "/auth/twitter/redirect",
+      callbackURL: process.env.CALL_BACK,
     },
     async (token, tokenSecret, profile, done) => {
       try {
